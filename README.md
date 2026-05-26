@@ -1,11 +1,31 @@
+# IPL Analytics Dashboard
 
-  # Design IPL Analytics Dashboard
+A modern, responsive analytics dashboard for Indian Premier League (IPL) data.
 
-  This is a code bundle for Design IPL Analytics Dashboard. The original project is available at https://www.figma.com/design/yMtLH6qoG73RbKIifwf48C/Design-IPL-Analytics-Dashboard.
+## Features
 
-  ## Running the code
+- Real-time statistics and analytics
+- Interactive charts and visualizations
+- Player and team performance metrics
+- Responsive design for all devices
 
-  Run `npm i` to install the dependencies.
+## Getting Started
 
-  Run `npm run dev` to start the development server.
-  
+First, install the dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+
+## Deployment
+
+This project is optimized for deployment on Vercel.
+Simply push your code to GitHub and connect it to Vercel for automatic deployments.

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
 import {
   AreaChart,
   Area,
@@ -520,7 +521,7 @@ const OverviewPage = () => {
   const teamLabels = Object.keys(teamColors);
 
   return (
-    <div className="p-6 space-y-6 max-w-[1440px] mx-auto">
+    <motion.div className="p-6 space-y-6 max-w-[1440px] mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       {/* KPI Row */}
       <div className="flex gap-4 flex-wrap">
         <KPICard label="Total Matches" value="74" sub="+6 vs last season" subColor="green" icon={Zap} />
@@ -603,20 +604,20 @@ const OverviewPage = () => {
           </table>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 // ─── Teams Page ────────────────────────────────────────────────────────────────
 const TeamsPage = () => {
   const [selectedTeam, setSelectedTeam] = useState("MI");
-  const data = TEAM_DATA[selectedTeam];
-  const team = TEAMS.find(t => t.id === selectedTeam)!;
+  const data = useMemo(() => TEAM_DATA[selectedTeam], [selectedTeam]);
+  const team = useMemo(() => TEAMS.find(t => t.id === selectedTeam)!, [selectedTeam]);
   const tossTotal = data.tossData[0].value + data.tossData[1].value;
   const tossWinPct = Math.round((data.tossData[0].value / tossTotal) * 100);
 
   return (
-    <div className="flex h-[calc(100vh-56px)]">
+    <motion.div className="flex h-[calc(100vh-56px)]" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 flex-shrink-0 overflow-y-auto p-4 gap-4" style={{ background: C.card, borderRight: `1px solid ${C.border}` }}>
         <p className="text-xs font-semibold uppercase tracking-widest px-2" style={{ color: C.muted }}>Select Team</p>
@@ -769,7 +770,7 @@ const TeamsPage = () => {
           </div>
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 };
 
@@ -785,17 +786,17 @@ const PlayersPage = () => {
   const player1 = TOP_BATSMEN[p1];
   const player2 = TOP_BATSMEN[p2];
 
-  const compareStats = [
+  const compareStats = useMemo(() => [
     { label: "Runs",    p1: player1.runs,  p2: player2.runs,  max: 800 },
     { label: "Avg",     p1: player1.avg,   p2: player2.avg,   max: 70 },
     { label: "SR",      p1: player1.sr,    p2: player2.sr,    max: 210 },
     { label: "Fours",   p1: player1.fours, p2: player2.fours, max: 80 },
     { label: "Sixes",   p1: player1.sixes, p2: player2.sixes, max: 50 },
     { label: "HS",      p1: player1.hs,    p2: player2.hs,    max: 130 },
-  ];
+  ], [player1, player2]);
 
   return (
-    <div className="p-5 space-y-4 max-w-[1440px] mx-auto">
+    <motion.div className="p-5 space-y-4 max-w-[1440px] mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       {/* Filter Bar */}
       <div className="flex flex-wrap items-center gap-3 px-4 py-3 rounded-xl" style={{ background: C.card, border: `1px solid ${C.border}` }}>
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg w-64" style={{ background: C.bg, border: `1px solid ${C.border}` }}>
@@ -942,7 +943,7 @@ const PlayersPage = () => {
           <span className="text-xs font-medium" style={{ color: "#5B9BD5" }}>{player2.full}</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -961,7 +962,7 @@ const BestXIPage = () => {
   const roleColor: Record<string, string> = { BAT: C.orange, BWL: C.teal, AR: "#5B9BD5", WK: C.CSK };
 
   return (
-    <div className="flex flex-col md:flex-row h-[calc(100vh-56px)]">
+    <motion.div className="flex flex-col md:flex-row h-[calc(100vh-56px)]" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       {/* Config Panel */}
       <aside className="w-full md:w-80 flex-shrink-0 overflow-y-auto p-5 space-y-5" style={{ background: C.card, borderRight: `1px solid ${C.border}` }}>
         <div className="flex items-center gap-2">
@@ -1120,17 +1121,17 @@ const BestXIPage = () => {
           )}
         </div>
       </main>
-    </div>
+    </motion.div>
   );
 };
 
 // ─── Venues Page (placeholder) ────────────────────────────────────────────────
 const VenuesPage = () => (
-  <div className="flex flex-col items-center justify-center h-[calc(100vh-56px)] gap-4">
+  <motion.div className="flex flex-col items-center justify-center h-[calc(100vh-56px)] gap-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
     <Target size={48} style={{ color: C.border }} />
     <h2 className="text-xl font-semibold" style={{ color: C.muted }}>Venues Analytics</h2>
     <p className="text-sm" style={{ color: C.border }}>Venue-specific stats and pitch reports — coming soon</p>
-  </div>
+  </motion.div>
 );
 
 // ─── Mobile Bottom Nav ────────────────────────────────────────────────────────
